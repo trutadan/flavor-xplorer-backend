@@ -28,11 +28,5 @@ module Backend
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-
-    # Enable the asset pipeline
-    config.assets.enabled = true
-
-    # Precompile additional assets
-    config.assets.precompile += %w( admin.js admin.css )
   end
 end
