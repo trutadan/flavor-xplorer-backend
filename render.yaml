@@ -2,6 +2,7 @@ databases:
   - name: flavorxplorer
     databaseName: flavorxplorer
     user: maddox
+    plan: free
 
 services:
   - type: web
