@@ -1,7 +1,7 @@
 databases:
   - name: flavorxplorer
     databaseName: flavorxplorer
-    user: postgres
+    user: maddox
 
 services:
   - type: web
