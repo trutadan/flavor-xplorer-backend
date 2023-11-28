@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+    include SessionsHelper
+
     include Pundit
 
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
