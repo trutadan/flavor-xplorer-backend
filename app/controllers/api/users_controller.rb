@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
         authorize User
 
         # If the user is an admin, they can view all users
-        @users = User.all.order(:id).paginate(page: params[:page], per_page: 25)
+        @users = User.all.order(created_at: :desc).paginate(page: params[:page], per_page: 25)
         @total_pages = @users.total_pages
 
         render json: {
@@ -47,6 +47,7 @@ class Api::UsersController < ApplicationController
         @user = User.new(user_params)
 
         if @user.save
+            create_user_account(user_account_params, @user.id)
             render json: @user, status: :created
         else
             render json: @user.errors, status: :unprocessable_entity
@@ -67,7 +68,6 @@ class Api::UsersController < ApplicationController
             else
                 render json: @user.errors, status: :unprocessable_entity
             end
-
         else
             render_not_found("User not found.")
         end
@@ -89,6 +89,10 @@ class Api::UsersController < ApplicationController
     end
   
     private
+        def user_account_params
+            params.require(:user).permit(:first_name, :last_name, :gender)
+        end
+
         def user_params
             params.require(:user).permit(:username, :email, :password, :password_confirmation)
         end

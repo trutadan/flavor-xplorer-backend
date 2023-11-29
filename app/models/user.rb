@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+    has_one: :user_account, dependent: :destroy
+
     has_secure_password
 
     attr_accessor :activation_token, :reset_token
