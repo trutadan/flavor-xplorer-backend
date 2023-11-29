@@ -103,6 +103,7 @@ GEM
     irb (1.9.1)
       rdoc
       reline (>= 0.3.8)
+    jwt (2.7.1)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -192,6 +193,7 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    will_paginate (4.0.0)
     zeitwerk (2.6.12)
 
 PLATFORMS
@@ -202,12 +204,14 @@ DEPENDENCIES
   bootsnap
   debug
   dotenv-rails
+  jwt
   pg (~> 1.1)
   puma (>= 5.0)
   pundit
   rack-cors
   rails (~> 7.1.1)
   tzinfo-data
+  will_paginate
 
 RUBY VERSION
    ruby 3.2.2p53
