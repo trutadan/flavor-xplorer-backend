@@ -26,6 +26,16 @@ class User < ApplicationRecord
     enum role: [:regular, :admin]
     validates :role, presence: true, inclusion: { in: roles.keys }
 
+    has_many :active_relationships, class_name: "Relationship",
+                                    foreign_key: "follower_id",
+                                    dependent: :destroy
+    has_many :following, through: :active_relationships, source: :followed
+
+    has_many :passive_relationships, class_name: "Relationship",
+                                    foreign_key: "followed_id",
+                                    dependent: :destroy
+    has_many :followers, through: :passive_relationships, source: :follower
+
     # Returns true if the given token matches the digest.
     def authenticated?(attribute, token)
         digest = send("#{attribute}_digest")
@@ -75,6 +85,26 @@ class User < ApplicationRecord
     # Returns a random token.
     def self.new_token
         SecureRandom.urlsafe_base64
+    end
+
+    # Follows a user.
+    def follow(other_user)
+        raise ArgumentError, "Cannot follow yourself" if self == other_user
+        raise ArgumentError, "Already following the user" if following?(other_user)
+    
+        following << other_user
+    end
+    
+    # Unfollows a user.
+    def unfollow(other_user)
+        raise ArgumentError, "Already not following the user" unless following?(other_user)
+
+        following.delete(other_user)
+    end
+    
+    # Returns true if the current user is following the other user.
+    def following?(other_user)
+        following.include?(other_user)
     end
 
     private

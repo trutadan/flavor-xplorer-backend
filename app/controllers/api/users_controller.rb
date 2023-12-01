@@ -15,7 +15,7 @@ class Api::UsersController < ApplicationController
             # Only return the id, username, email, and role of each user
             users: @users.as_json(only: role_based_attributes),
             total_pages: @total_pages
-        }
+        }, status: :ok
     end
   
     # GET api/users/autocomplete
@@ -26,7 +26,7 @@ class Api::UsersController < ApplicationController
 
             # Only return the id and username of the first 5 users
             @users = User.where("username ILIKE ?", "%#{query}%").order(:username).limit(5)
-            render json: @users.as_json(only: [:id, :username])
+            render json: @users.as_json(only: [:id, :username]), status: :ok
         end
     end
   
@@ -37,7 +37,7 @@ class Api::UsersController < ApplicationController
 
         # If the user is an admin, they can view all users details, including their roles
         # If the user is regular, he can only view his own details
-        render json: @user.as_json(only: role_based_attributes)
+        render json: @user.as_json(only: role_based_attributes), status: :ok
     end
 
     # POST api/users
@@ -75,7 +75,7 @@ class Api::UsersController < ApplicationController
         # Admins can update any user's details
         # Regular users can only update their own details, except for their role
         if @user.update(current_user&.admin? ? user_params_with_role : user_params)
-            render json: @user.as_json(only: role_based_attributes)
+            render json: @user.as_json(only: role_based_attributes), status: :ok
         else
             render json: {errors: @user.errors }, status: :unprocessable_entity
         end
@@ -87,7 +87,7 @@ class Api::UsersController < ApplicationController
         authorize @user
 
         @user.destroy
-        render json: { message: 'User has been deleted.' }, status: :ok
+        render json: { message: 'User has been deleted' }, status: :ok
     end
   
     private
@@ -117,6 +117,6 @@ class Api::UsersController < ApplicationController
 
         def set_user
             @user = User.find(params[:id])
-            render_not_found("User not found.") unless @user
+            render_not_found("User not found") unless @user
         end
 end

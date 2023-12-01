@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
     namespace :api do
+        post '/login', to: 'sessions#create'
+        delete '/logout', to: 'sessions#destroy'
+
         resources :users do
             collection do
                 get 'autocomplete'
@@ -9,9 +12,14 @@ Rails.application.routes.draw do
             collection do
               get 'accounts' => 'user_accounts#index'
             end
+
+            member do
+                get 'followers', to: 'relationships#followers'
+                get 'following', to: 'relationships#following'
+            end
         end
 
-        post '/login', to: 'sessions#create'
-        delete '/logout', to: 'sessions#destroy'
+        post '/relationships/follow', to: 'relationships#follow'
+        post '/relationships/unfollow', to: 'relationships#unfollow'
     end
 end
