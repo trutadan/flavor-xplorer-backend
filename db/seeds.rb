@@ -9,7 +9,7 @@
 #   end
 
 # Create an admin user
-admin = User.create(
+admin = User.create!(
   username: 'admin',
   email: 'admin@example.com',
   password: 'Pa$$w0rd',
@@ -19,11 +19,27 @@ admin = User.create(
 )
 
 # Create a regular user
-user = User.create(
-    username: "user",
-    email: "user@example.com",
-    password: 'Pa$$w0rd',
-    password_confirmation: 'Pa$$w0rd',
-    role: User.roles["regular"],
-    activated: true
-  )
+user = User.create!(
+  username: "user",
+  email: "user@example.com",
+  password: 'Pa$$w0rd',
+  password_confirmation: 'Pa$$w0rd',
+  role: User.roles["regular"],
+  activated: true
+)
+
+# Create a user account for the admin user
+admin_account = UserAccount.create!(
+  first_name: 'Admin',
+  last_name: 'User',
+  gender: UserAccount.genders["male"],
+  user_id: admin.id
+)
+
+# Create a user account for the regular user
+user_account = UserAccount.create!(
+  first_name: 'Regular',
+  last_name: 'User',
+  gender: UserAccount.genders["prefer_not_to_say"],
+  user_id: user.id
+)

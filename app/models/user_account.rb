@@ -14,10 +14,10 @@ class UserAccount < ApplicationRecord
 
     VALID_PRONOUNS_REGEX = /\A[a-zA-Z\/]+\z/
     validates :pronouns, length: { maximum: 50 }, allow_nil: true, allow_blank: true, 
-                        format: { with: VALID_PRONOUNS_REGEX, message: "can only contain letters and forward slashes" }, 
+                        format: { with: VALID_PRONOUNS_REGEX, message: "can only contain letters and forward slashes" }
 
     enum gender: [:male, :female, :prefer_not_to_say]
-    validates :gender, presence: true, inclusion: { in genders.keys }
+    validates :gender, presence: true, inclusion: { in: genders.keys }
 
     private 
         def validate_avatar_size

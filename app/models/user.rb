@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-    has_one: :user_account, dependent: :destroy
+    has_one :user_account, dependent: :destroy
 
     has_secure_password
 

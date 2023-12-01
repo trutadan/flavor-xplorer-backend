@@ -1,21 +1,21 @@
 class UserPolicy < ApplicationPolicy
     def index?
-        raise Pundit::NotAuthorizedError, "You are not authorized to view all users." unless @user&.admin?
+        raise Pundit::NotAuthorizedError, "You are not authorized to view all users." unless user&.admin?
         true
     end
 
     def show?
-        raise Pundit::NotAuthorizedError, "You are not authorized to view this user." unless @user&.admin? || current_user?(@user)
+        raise Pundit::NotAuthorizedError, "You are not authorized to view this user." unless user&.admin? || current_user?(user)
         true
     end
 
     def update?
-        raise Pundit::NotAuthorizedError, "You are not authorized to update this user." unless @user&.admin? || current_user?(@user)
+        raise Pundit::NotAuthorizedError, "You are not authorized to update this user." unless user&.admin? || current_user?(user)
         true
     end
 
     def destroy?
-        raise Pundit::NotAuthorizedError, "You are not authorized to delete this user." unless @user&.admin?
+        raise Pundit::NotAuthorizedError, "You are not authorized to delete this user." unless user&.admin?
         true
     end
 end
