@@ -53,7 +53,7 @@ class Api::UsersController < ApplicationController
     
                 # Save the user account
                 if @user_account.save
-                    render json: @user.as_json(only: role_based_attributes), status: :created
+                    render json: "User has been successfully created", status: :created
                 else
                     render json: { errors: @user_account.errors }, status: :unprocessable_entity
                     # Rollback the transaction if user account save fails
