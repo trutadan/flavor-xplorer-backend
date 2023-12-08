@@ -1,5 +1,6 @@
 class User < ApplicationRecord
     has_one :user_account, dependent: :destroy
+    has_many :posts, dependent: :destroy
 
     has_secure_password
 
