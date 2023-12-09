@@ -6,7 +6,7 @@ class Api::SessionsController < ApplicationController
             token = log_in(user)
             render json: { message: 'Logged in successfully', token: token, user_id: user.id, username: user.username, role: user.role }, status: :ok
         else
-            render json: { error: 'Invalid email or password' }, status: :unauthorized
+            render json: { errors: 'Invalid email or password' }, status: :unauthorized
         end
     end
 

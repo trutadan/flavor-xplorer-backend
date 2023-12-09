@@ -26,6 +26,12 @@ Rails.application.routes.draw do
             collection do
                 get :feed
                 get :explore
+                get 'bookmarks', to: 'bookmarks#index'
+            end
+
+            member do
+                post 'bookmark', to: 'bookmarks#bookmark'
+                delete 'unbookmark', to: 'bookmarks#unbookmark'
             end
         end
     end

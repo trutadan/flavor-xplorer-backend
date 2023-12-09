@@ -9,7 +9,7 @@ class ApplicationController < ActionController::API
 
     private
         def render_unauthorized(message = 'You are not authorized to perform this action')
-            render json: { error: message }, status: :unauthorized
+            render json: { errors: message }, status: :unauthorized
         end
 
         def require_authentication
@@ -21,6 +21,6 @@ class ApplicationController < ActionController::API
         end
 
         def render_not_found(message = 'Entity not found')
-            render json: { error: message }, status: :not_found
+            render json: { errors: message }, status: :not_found
         end
 end

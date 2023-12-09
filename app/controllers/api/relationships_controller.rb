@@ -27,7 +27,7 @@ class Api::RelationshipsController < ApplicationController
             current_user.follow(@followed_user)
             render json: { message: "User followed successfully" }, status: :created
         rescue ArgumentError => error
-            render json: { error: error.message }, status: :unprocessable_entity
+            render json: { errors: error.message }, status: :unprocessable_entity
         end
     end
 
@@ -37,7 +37,7 @@ class Api::RelationshipsController < ApplicationController
             current_user.unfollow(@followed_user)
             render json: { message: "User unfollowed successfully" }, status: :ok
         rescue ArgumentError => error
-            render json: { error: error.message }, status: :unprocessable_entity
+            render json: { errors: error.message }, status: :unprocessable_entity
         end
     end
 

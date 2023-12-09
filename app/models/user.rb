@@ -74,8 +74,7 @@ class User < ApplicationRecord
 
     # Resets the password.
     def reset_password(params)
-        self.update(params)      
-        self.update(reset_digest: nil, reset_sent_at: nil)    
+        update(params.merge(reset_digest: nil, reset_sent_at: nil))
     end
 
     # Returns true if a password reset has expired.
@@ -112,6 +111,26 @@ class User < ApplicationRecord
     # Returns true if the current user is following the other user.
     def following?(other_user)
         following.include?(other_user)
+    end
+
+    # Bookmarks a post.
+    def bookmark(post)
+        raise ArgumentError, "Cannot bookmark your own post" if post.user == self
+        raise ArgumentError, "Already bookmarked the post" if bookmarked?(post)
+
+        bookmarked_posts << post
+    end
+
+    # Unbookmarks a post.
+    def unbookmark(post)
+        raise ArgumentError, "The post is already not bookmarked" unless bookmarked?(post)
+
+        bookmarked_posts.delete(post)
+    end
+
+    # Returns true if the current user has bookmarked the post.
+    def bookmarked?(post)
+        bookmarked_posts.include?(post)
     end
 
     private
