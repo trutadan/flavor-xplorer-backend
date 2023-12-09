@@ -27,6 +27,8 @@ class Api::UsersController < ApplicationController
             # Only return the id and username of the first 5 users
             @users = User.where("username ILIKE ?", "%#{query}%").order(:username).limit(5)
             render json: @users.as_json(only: [:id, :username]), status: :ok
+        else
+            render json: { errors: "Missing query parameter" }, status: :bad_request
         end
     end
   
@@ -53,7 +55,7 @@ class Api::UsersController < ApplicationController
     
                 # Save the user account
                 if @user_account.save
-                    render json: "User has been successfully created", status: :created
+                    render json: { message: "User has been successfully created" }, status: :created
                 else
                     render json: { errors: @user_account.errors }, status: :unprocessable_entity
                     # Rollback the transaction if user account save fails
@@ -96,12 +98,10 @@ class Api::UsersController < ApplicationController
             params.require(:user).permit(:username, :email, :password, :password_confirmation, :first_name, :last_name, :gender)
         end
 
-        # Only allow a trusted user parameter "white list" through
         def user_params
             params.require(:user).permit(:username, :email, :password, :password_confirmation)
         end
 
-        # Only allow a trusted user parameter "white list" through, including user's role
         def user_params_with_role
             params.require(:user).permit(:username, :email, :password, :password_confirmation, :role)
         end
@@ -115,6 +115,7 @@ class Api::UsersController < ApplicationController
             end
         end
 
+        # Use callbacks to share common setup or constraints between actions
         def set_user
             @user = User.find(params[:id])
             render_not_found("User not found") unless @user

@@ -53,6 +53,7 @@ class Api::RelationshipsController < ApplicationController
             render_not_found("User not found") unless @followed_user
         end
 
+        # Only allow a trusted parameter "white list" through
         def user_params
             [:id, :username]
         end

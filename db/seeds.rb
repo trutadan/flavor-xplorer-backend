@@ -43,3 +43,48 @@ user_account = UserAccount.create!(
   gender: UserAccount.genders["prefer_not_to_say"],
   user_id: user.id
 )
+
+# Seed data for Posts
+admin_post = Post.create!(
+  title: 'Admin Post',
+  ingredients: 'Ingredient 1, Ingredient 2',
+  instructions: 'Step 1, Step 2',
+  cooking_time: 30,
+  servings: 4,
+  user_id: admin.id
+)
+
+user_post = Post.create!(
+  title: 'User Post',
+  ingredients: 'Ingredient A, Ingredient B',
+  instructions: 'Step A, Step B',
+  cooking_time: 45,
+  servings: 2,
+  user_id: user.id
+)
+
+# Seed data for Ratings
+Rating.create!(
+  value: 4,
+  user_id: admin.id,
+  post_id: user_post.id
+)
+
+Rating.create!(
+  value: 5,
+  user_id: user.id,
+  post_id: admin_post.id
+)
+
+# Seed data for Comments
+Comment.create!(
+  content: 'Great post!',
+  user_id: admin.id,
+  post_id: user_post.id
+)
+
+Comment.create!(
+  content: 'Awesome!',
+  user_id: user.id,
+  post_id: admin_post.id
+)

@@ -21,5 +21,12 @@ Rails.application.routes.draw do
 
         post '/relationships/follow', to: 'relationships#follow'
         post '/relationships/unfollow', to: 'relationships#unfollow'
+
+        resources :posts, only: [:index, :create, :show, :update, :destroy] do
+            collection do
+                get :feed
+                get :explore
+            end
+        end
     end
 end

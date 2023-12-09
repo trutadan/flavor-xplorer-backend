@@ -37,6 +37,7 @@ class Api::UserAccountsController < ApplicationController
     end
 
     private
+        # Use callbacks to share common setup or constraints between actions
         def user_account_info_params
             [:first_name, :last_name, :description, :pronouns, :gender]
         end
@@ -49,6 +50,7 @@ class Api::UserAccountsController < ApplicationController
             user_account.as_json(only: user_account_info_params).merge(avatar: user_account.avatar.service_url)
         end
 
+        # Use callbacks to share common setup or constraints between actions
         def set_user_account
             @user = User.find(params[:user_id])
             render_not_found("User not found") unless @user

@@ -16,7 +16,7 @@ class Api::SessionsController < ApplicationController
     end
 
     private
-        # Returns the symbol for the email or username field.
+        # Returns the symbol for the email or username field
         def email_or_username
             params[:identifier].include?('@') ? :email : :username
         end
