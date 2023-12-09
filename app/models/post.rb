@@ -4,6 +4,9 @@ class Post < ApplicationRecord
     has_many :ratings, dependent: :destroy
     has_many :comments, dependent: :destroy
 
+    has_many :bookmarks, dependent: :destroy
+    has_many :bookmarking_users, through: :bookmarks, source: :user
+
     has_many_attached :images
     validate :validate_images_size
     validate :validate_images_format
