@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
         resources :posts, only: [:index, :create, :show, :update, :destroy] do
             collection do
+                get :all
                 get :feed
                 get :explore
                 get 'bookmarks', to: 'bookmarks#index'
