@@ -127,14 +127,14 @@ class Api::PostsController < ApplicationController
     end
 
     private
+        # Only allow a trusted parameter "white list" through
+        def post_params
+            params.require(:post).permit(:title, :ingredients, :instructions, :cooking_time, :servings, images: [], videos: [])
+        end
+
         # Use callback to share common setup or constraints between actions
         def set_post
             @post = Post.find(params[:id])
             render_not_found("Post not found") unless @post
-        end
-
-        # Only allow a trusted parameter "white list" through
-        def post_params
-            params.require(:post).permit(:title, :ingredients, :instructions, :cooking_time, :servings, images: [], videos: [])
         end
 end

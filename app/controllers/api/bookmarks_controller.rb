@@ -5,7 +5,7 @@ class Api::BookmarksController < ApplicationController
     # GET api/posts/bookmarks
     def index
         # Return all bookmarked posts in descending order of creation date of the bookmark
-        @bookmarked_posts  = current_user.bookmarked_posts
+        @bookmarked_posts = current_user.bookmarked_posts
                                             .joins(:bookmarks)
                                             .order('bookmarks.created_at DESC')
                                             .paginate(page: params[:page], per_page: 9)

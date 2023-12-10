@@ -42,6 +42,11 @@ class Api::RelationshipsController < ApplicationController
     end
 
     private 
+        # Only allow a trusted parameter "white list" through
+        def user_params
+            [:id, :username]
+        end
+
         # Use callbacks to share common setup or constraints between actions
         def set_user
             @user = User.find(params[:id])
@@ -51,10 +56,5 @@ class Api::RelationshipsController < ApplicationController
         def set_followed_user
             @followed_user = User.find(params[:followed_id])
             render_not_found("User not found") unless @followed_user
-        end
-
-        # Only allow a trusted parameter "white list" through
-        def user_params
-            [:id, :username]
         end
 end

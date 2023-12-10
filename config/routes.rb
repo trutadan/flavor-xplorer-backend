@@ -27,13 +27,19 @@ Rails.application.routes.draw do
                 get :all
                 get :feed
                 get :explore
+
                 get 'bookmarks', to: 'bookmarks#index'
+
+                get 'ratings', to: 'ratings#all'
             end
 
             member do
                 post 'bookmark', to: 'bookmarks#bookmark'
                 delete 'unbookmark', to: 'bookmarks#unbookmark'
+                post 'rate', to: 'ratings#rate'
             end
+
+            resources :ratings, only: [:index]
         end
     end
 end

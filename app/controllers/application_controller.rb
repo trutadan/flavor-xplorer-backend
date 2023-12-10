@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
     include SessionsHelper
     include PostsHelper
+    include RatingsHelper
     include CommentsHelper
 
     include Pundit::Authorization
