@@ -1,4 +1,6 @@
 class Api::BookmarksController < ApplicationController
+    include BookmarksHelper
+
     before_action :set_post, only: [:bookmark, :unbookmark]
     before_action :require_authentication
 
@@ -15,7 +17,24 @@ class Api::BookmarksController < ApplicationController
         @bookmarked_posts_data = format_posts_data(@bookmarked_posts)
 
         render json: {
-            bookmarks: @bookmarked_posts_data,
+            bookmarked_posts: @bookmarked_posts_data,
+            total_pages: @total_pages
+        }, status: :ok
+    end
+
+    # GET api/posts/bookmarks/all
+    def all
+        # Return all bookmarks with information about the users who bookmarked them
+        @bookmarks = Bookmark.all.includes(:user, post: :user)
+                                    .order(created_at: :desc)
+                                    .paginate(page: params[:page], per_page: 25)
+        @total_pages = @bookmarks.total_pages
+
+        # Format data for response
+        @bookmarks_data = format_bookmarks_data(@bookmarks)
+
+        render json: {
+            bookmarks: @bookmarks_data,
             total_pages: @total_pages
         }, status: :ok
     end

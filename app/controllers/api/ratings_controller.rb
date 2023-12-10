@@ -1,4 +1,6 @@
 class Api::RatingsController < ApplicationController
+    include RatingsHelper
+
     before_action :set_post, only: [:index]
     before_action :set_rate_post, only: [:rate]
     before_action :require_authentication

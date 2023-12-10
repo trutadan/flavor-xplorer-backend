@@ -7,7 +7,7 @@ class Api::RelationshipsController < ApplicationController
     def followers
         authorize @user, :followers?
 
-        followers = @user.followers.paginate(page: params[:page], per_page: 10) 
+        followers = @user.followers.paginate(page: params[:page], per_page: 9) 
     
         render json: followers.as_json(only: user_params), status: :ok
     end
@@ -16,7 +16,7 @@ class Api::RelationshipsController < ApplicationController
     def following
         authorize @user, :following?
 
-        following = @user.following.paginate(page: params[:page], per_page: 10) 
+        following = @user.following.paginate(page: params[:page], per_page: 9) 
     
         render json: following.as_json(only: user_params), status: :ok
     end

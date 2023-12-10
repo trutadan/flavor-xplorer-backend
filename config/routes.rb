@@ -29,6 +29,7 @@ Rails.application.routes.draw do
                 get :explore
 
                 get 'bookmarks', to: 'bookmarks#index'
+                get 'bookmarks/all', to: 'bookmarks#all'
 
                 get 'ratings', to: 'ratings#all'
             end
