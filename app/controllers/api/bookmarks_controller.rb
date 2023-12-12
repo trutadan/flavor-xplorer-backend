@@ -24,6 +24,8 @@ class Api::BookmarksController < ApplicationController
 
     # GET api/posts/bookmarks/all
     def all
+        authorize Bookmark
+        
         # Return all bookmarks with information about the users who bookmarked them
         @bookmarks = Bookmark.all.includes(:user, post: :user)
                                     .order(created_at: :desc)

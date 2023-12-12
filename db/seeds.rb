@@ -88,3 +88,31 @@ Comment.create!(
   user_id: user.id,
   post_id: admin_post.id
 )
+
+30.times do
+  Comment.create!(
+    content: Faker::Lorem.sentence,
+    user_id: User.all.sample.id,
+    post_id: user_post.id
+  )
+end
+
+30.times do
+  Comment.create!(
+    content: Faker::Lorem.sentence,
+    user_id: User.all.sample.id,
+    post_id: admin_post.id
+  )
+end
+
+# Seed data for Replies
+Comment.all.each do |comment|
+  rand(0..5).times do
+    Comment.create!(
+      content: Faker::Lorem.sentence,
+      user_id: User.all.sample.id,
+      post_id: comment.post_id,
+      parent_comment_id: comment.id
+    )
+  end
+end

@@ -32,6 +32,9 @@ Rails.application.routes.draw do
                 get 'bookmarks/all', to: 'bookmarks#all'
 
                 get 'ratings', to: 'ratings#all'
+
+                get 'comments', to: 'comments#all'
+                get 'comments/:id', to: 'comments#show'
             end
 
             member do
@@ -41,6 +44,13 @@ Rails.application.routes.draw do
             end
 
             resources :ratings, only: [:index]
+
+            resources :comments, only: [:index, :create, :update, :destroy] do
+                member do
+                    get 'replies', to: 'comments#replies'
+                    post 'replies', to: 'comments#reply'
+                end
+            end
         end
     end
 end
