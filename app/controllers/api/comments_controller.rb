@@ -1,6 +1,6 @@
 class Api::CommentsController < ApplicationController
     before_action :set_post, only: [:index, :create]
-    before_action :set_comment, only: [:show, :replies, :update, :destroy]
+    before_action :set_comment, only: [:show, :replies, :reply, :update, :destroy]
     before_action :require_authentication
 
     # GET api/posts/:post_id/comments
