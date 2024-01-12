@@ -17,6 +17,24 @@ class Api::PostsController < ApplicationController
         }, status: :ok
     end
 
+    # GET api/users/:id/posts
+    def user_posts       
+        # Find the user by ID
+        @user = User.find(params[:id])
+
+        # Return the user's posts in descending order of creation date
+        @user_posts = @user.posts.order(created_at: :desc).paginate(page: params[:page], per_page: 9)
+        @total_pages = @user_posts.total_pages
+
+        # Format data for response
+        @posts_data = format_posts_data(@user_posts)
+
+        render json: {
+            user_posts: @posts_data,
+            total_pages: @total_pages
+        }, status: :ok
+    end
+
     # GET api/posts/all
     def all
         authorize Post
