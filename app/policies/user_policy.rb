@@ -19,13 +19,13 @@ class UserPolicy < ApplicationPolicy
         true
     end
 
-    def followers?
-        raise Pundit::NotAuthorizedError, "You are not authorized to view the followers of this user" unless user == record || user.admin?
-        true
-    end
+    # def followers?
+    #     raise Pundit::NotAuthorizedError, "You are not authorized to view the followers of this user" unless user == record || user.admin?
+    #     true
+    # end
     
-    def following?
-        raise Pundit::NotAuthorizedError, "You are not authorized to view the users followed by this user" unless user == record || user.admin?
-        true
-    end      
+    # def following?
+    #     raise Pundit::NotAuthorizedError, "You are not authorized to view the users followed by this user" unless user == record || user.admin?
+    #     true
+    # end      
 end

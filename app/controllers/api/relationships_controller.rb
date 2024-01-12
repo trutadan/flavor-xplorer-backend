@@ -5,7 +5,7 @@ class Api::RelationshipsController < ApplicationController
     
     # GET api/users/:id/followers
     def followers
-        authorize @user, :followers?
+        # authorize @user, :followers?
 
         followers = @user.followers.paginate(page: params[:page], per_page: 9) 
     
@@ -14,7 +14,7 @@ class Api::RelationshipsController < ApplicationController
   
     # GET api/users/:id/following
     def following
-        authorize @user, :following?
+        # authorize @user, :following?
 
         following = @user.following.paginate(page: params[:page], per_page: 9) 
     
