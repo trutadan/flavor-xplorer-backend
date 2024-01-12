@@ -11,10 +11,10 @@ class UserAccountPolicy < ApplicationPolicy
     true
   end
 
-  def show?
-    raise Pundit::NotAuthorizedError, "You are not authorized to view this user" unless @user == @user_account&.user || @user&.admin?
-    true
-  end
+  # def show?
+  #   raise Pundit::NotAuthorizedError, "You are not authorized to view this user" unless @user == @user_account&.user || @user&.admin?
+  #   true
+  # end
 
   def update?
     raise Pundit::NotAuthorizedError, "You are not authorized to update this user" unless @user == @user_account&.user || @user&.admin?

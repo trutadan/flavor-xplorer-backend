@@ -19,7 +19,7 @@ class Api::UserAccountsController < ApplicationController
     # GET api/users/1/account
     def show
         # Only admins and the account owner can view the user account
-        authorize @user_account
+        # authorize @user_account
 
         render json: user_account_json(@user_account), status: :ok
     end
